@@ -6,6 +6,7 @@ Integrantes:
 -Angelo Ortiz
 
 ## Diagrama Base de Datos
+![ImageAlt](https://github.com/Kietth/TransferDatabase/blob/c57798244657da7ac1ad27d55cd079827b01fe4d/diagrama.png)
 
 
 Especificación de la base de datos:
