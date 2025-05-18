@@ -8,7 +8,17 @@ Integrantes:
 ## Diagrama Base de Datos
 ![ImageAlt](https://github.com/Kietth/TransferDatabase/blob/c57798244657da7ac1ad27d55cd079827b01fe4d/diagrama.png)
 
-## 
+## Como usar el programa:
+```
+1. Instalar dependencias:
+    pip install psycopg2
+    pip install matplotlib
+    pip install pandas
+
+2. Dentro del programa analisis.py, modificar los parámetros de conexión a la base de datos
+
+3. Ejecutar el programa como: python analisis.py año    o    python3 analisis.py año
+```
 
 
 ## Especificación de la base de datos:
