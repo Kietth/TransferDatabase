@@ -5,6 +5,9 @@ Integrantes:
 -Sebastián Cuevas
 -Angelo Ortiz
 
+## Diagrama Base de Datos
+
+
 Especificación de la base de datos:
 
 Sistema que permite gestionar las operaciones de una empresa de transporte de pasajeros, incluyendo reservas, vehiculos, choferes, pagos y tarifas.
