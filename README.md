@@ -25,10 +25,9 @@ Integrantes:
 
 Sistema que permite gestionar las operaciones de una empresa de transporte de pasajeros, incluyendo reservas, vehiculos, choferes, pagos y tarifas.
 ```
--Pasajeros: almacena información de los clientes que utilian el servicio 
--Vehiculos: registran los móviles disponibles en la flota 
--Tipos_Vehiculos: define la categoría de los vehículos y sus características
--Choferes: almacena información sobre los conductores
--Hechos_Reservas: es un registro de los servicios contratados por los pasajeros que relaciona todas las demás tablas
--Pagos: registra los pagos asociados a cada reserva.
+-Pasajeros: almacena información de los clientes que utilian el servicio, incluye el rut, nombre, apellido, correo y telefono de contacto
+-Vehiculos: registran los móviles disponibles en la flota, incluye un id unico para cada vehiculo, patente, modelo, clase, tarifa base y la capacidad de cada vehiculo
+-Choferes: almacena información sobre los conductores, incluye un id unico para cada chofer, el rut, nombre, apellido, contacto y licencia 
+-Hechos_Reservas: es un registro de los servicios contratados por los pasajeros que relaciona todas las demás tablas, almacena una id unica para la reserva, el rut del pasajero, id del chofer asociado, la id del vehiculo asociado, la cantidad de pasajeros que realizarán el viaje, estado de la reserva, el tipo de servicio, fecha, hora, origen, el destino, el monto total del pago y el metodo de pago
+
 ```
