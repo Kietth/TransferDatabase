@@ -23,7 +23,6 @@ Integrantes:
 
 ## Especificación de la base de datos:
 
-```
 El sistema está diseñado para apoyar la gestión operativa y administrativa de una empresa dedicada al transporte de pasajeros. A través de este sistema, se puede registrar y organizar de manera eficiente la información relacionada con clientes, vehículos, choferes y las reservas de viajes. Además, permite controlar los pagos y calcular montos en función de las tarifas aplicadas, asegurando un seguimiento completo de los servicios prestados.
 
 La base de datos incluye un módulo para gestionar la información de los pasajeros que hacen uso del servicio. Cada pasajero es identificado de forma única mediante su RUT, y se almacenan sus datos personales como el nombre, apellido, correo electrónico y teléfono de contacto. Esta información permite a la empresa comunicarse con los clientes cuando sea necesario y mantener un historial de sus reservas previas.
@@ -46,4 +45,3 @@ El sistema establece relaciones claras entre las diferentes entidades:
 
     -Las reservas se cruzan con información de tipo servicio, método de pago y estado, lo que permite filtrar y analizar la operación desde múltiples perspectivas.
 
-```
