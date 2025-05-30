@@ -5,22 +5,6 @@ Integrantes:
 -Sebastián Cuevas
 -Angelo Ortiz
 
-## Diagrama Base de Datos
-![ImageAlt](https://github.com/Kietth/TransferDatabase/blob/c57798244657da7ac1ad27d55cd079827b01fe4d/diagrama.png)
-
-## Como usar el programa:
-```
-1. Instalar dependencias:
-    pip install psycopg2
-    pip install matplotlib
-    pip install pandas
-
-2. Dentro del programa analisis.py, modificar los parámetros de conexión a la base de datos
-
-3. Ejecutar el programa como: python analisis.py año    o    python3 analisis.py año
-```
-
-
 ## Especificación de la base de datos:
 
 El sistema está diseñado para apoyar la gestión operativa y administrativa de una empresa dedicada al transporte de pasajeros. A través de este sistema, se puede registrar y organizar de manera eficiente la información relacionada con clientes, vehículos, choferes y las reservas de cada viaje. Además, permite controlar los pagos y calcular montos en función de las tarifas aplicadas, asegurando un seguimiento completo de los servicios prestados.
@@ -42,4 +26,22 @@ El sistema establece relaciones claras entre las diferentes entidades:
     -Cada reserva está asociada a un único chofer y un único vehículo, aunque un mismo chofer o vehículo puede participar en múltiples reservas distintas.
 
     -Las reservas se cruzan con información de tipo servicio, método de pago y estado, lo que permite filtrar y analizar la operación desde múltiples perspectivas.
+
+
+## Diagrama Base de Datos
+![ImageAlt](https://github.com/Kietth/TransferDatabase/blob/c57798244657da7ac1ad27d55cd079827b01fe4d/diagrama.png)
+
+## Como usar el programa:
+```
+1. Instalar dependencias:
+    pip install psycopg2
+    pip install matplotlib
+    pip install pandas
+
+2. Dentro del programa analisis.py, modificar los parámetros de conexión a la base de datos
+
+3. Ejecutar el programa como: python analisis.py año    o    python3 analisis.py año
+```
+
+
 
