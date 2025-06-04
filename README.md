@@ -19,7 +19,7 @@ El corazón del sistema lo constituye la tabla de reservas, que actúa como el e
 
 Esta tabla no solo permite controlar todas las reservas, sino que también sirve para generar informes, hacer seguimiento del historial de cada cliente, medir la eficiencia de los choferes y del uso de la flota, y proyectar necesidades operativas futuras.
 
-El sistema establece relaciones claras entre las diferentes entidades:
+Se establecen las siguientes relaciones en el sistema:
 
     -Un mismo pasajero puede realizar múltiples reservas a lo largo del tiempo.
 
