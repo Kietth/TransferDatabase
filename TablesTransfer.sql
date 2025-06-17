@@ -1,7 +1,3 @@
-CREATE TABLE metodos_pago (
-  id_metodo_pago SERIAL PRIMARY KEY,
-  nombre varchar NOT NULL
-);
 
 CREATE TABLE tipos_servicio (
   id_tipo_servicio SERIAL PRIMARY KEY,
@@ -54,6 +50,6 @@ CREATE TABLE hechos_reservas (
   origen varchar,
   destino varchar,
   monto_pago numeric,
-  id_metodo_pago int REFERENCES metodos_pago (id_metodo_pago)
+  metodo_pago varchar
 );
 
