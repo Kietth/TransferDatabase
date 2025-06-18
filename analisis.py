@@ -29,11 +29,11 @@ try:
                 SELECT 
                     C.nombre || ' ' || C.apellido AS chofer,
                     SUM(H.monto_pago) AS total_generado
-                FROM "Hechos_Reservas" H
-                JOIN "Choferes" C ON H.id_chofer = C.id_chofer
+                FROM hechos_reservas H
+                JOIN choferes C ON H.id_chofer = C.id_chofer
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
-                    H.estado = 'Completado'
+                    H.estado = 'Completada'
                 GROUP BY C.id_chofer, C.nombre, C.apellido
                 ORDER BY total_generado DESC;
             """    
@@ -45,10 +45,10 @@ try:
                         TO_CHAR(fecha, 'Month') AS mes,
                         EXTRACT(MONTH FROM fecha) AS numero_mes,
                         SUM(monto_pago) AS total_mes
-                    FROM "Hechos_Reservas"
+                    FROM hechos_reservas
                     WHERE 
                         EXTRACT(YEAR FROM fecha) = %s AND
-                        estado = 'Completado'
+                        estado = 'Completada'
                     GROUP BY mes, numero_mes
                     ORDER BY numero_mes;
             """
@@ -60,11 +60,11 @@ try:
                     C.nombre  || ' ' ||  C.apellido AS chofer,
                     EXTRACT(MONTH FROM H.fecha) AS mes,
                     SUM(H.monto_pago) AS total_mes
-                FROM "Hechos_Reservas" H
-                JOIN "Choferes" C ON H.id_chofer = C.id_chofer
+                FROM hechos_reservas H
+                JOIN choferes C ON H.id_chofer = C.id_chofer
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
-                    H.estado = 'Completado'
+                    H.estado = 'Completada'
                 GROUP BY C.id_chofer, C.nombre, C.apellido, mes
                 ORDER BY chofer, mes;
             """
@@ -73,44 +73,46 @@ try:
             "titulo": "Tipos de servicios solicitados por mes",
             "sql": """
                 SELECT 
-                    tipo_servicio,
-                    EXTRACT(MONTH FROM fecha) AS mes,
+                    TS.nombre AS tipo_servicio,
+                    EXTRACT(MONTH FROM HR.fecha) AS mes,
                     COUNT(*) AS cantidad_servicios
-                FROM "Hechos_Reservas"
+                FROM hechos_reservas HR
+                JOIN tipos_servicio TS ON HR.id_tipo_servicio = TS.id_tipo_servicio
                 WHERE 
-                    EXTRACT(YEAR FROM fecha) = %s AND
-                    estado = 'Completado'
-                GROUP BY tipo_servicio, mes
-                ORDER BY mes, tipo_servicio;
+                    EXTRACT(YEAR FROM HR.fecha) = %s AND
+                    HR.estado = 'Completada'
+                GROUP BY TS.nombre, mes
+                ORDER BY mes, TS.nombre;
             """
         },
         {
             "titulo": "Vehiculos usados por mes",
             "sql": """
                 SELECT 
-                    V.id_vehiculo,
+                    V.patente AS id_vehiculo, -- Ahora se selecciona la patente
                     EXTRACT(MONTH FROM H.fecha) AS mes,
                     COUNT(*) AS veces_usado
-                FROM "Hechos_Reservas" H
-                JOIN "Vehiculos" V ON H.id_vehiculo = V.id_vehiculo
+                FROM hechos_reservas H
+                JOIN vehiculos V ON H.id_vehiculo = V.id_vehiculo
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
-                    H.estado = 'Completado'
-                GROUP BY V.id_vehiculo, mes
-                ORDER BY mes, V.id_vehiculo;
+                    H.estado = 'Completada'
+                GROUP BY V.patente, mes
+                ORDER BY mes, V.patente;
             """
         },
         {
             "titulo": "Total generado por vehiculo en un año",
             "sql": """
                 SELECT 
-                    H.id_vehiculo,
+                    V.patente AS id_vehiculo, -- Ahora se selecciona la patente
                     SUM(H.monto_pago) AS total_generado
-                FROM "Hechos_Reservas" H
+                FROM hechos_reservas H
+                JOIN vehiculos V ON H.id_vehiculo = V.id_vehiculo
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
-                    H.estado = 'Completado'
-                GROUP BY H.id_vehiculo
+                    H.estado = 'Completada'
+                GROUP BY V.patente
                 ORDER BY total_generado DESC;
             """
         }
@@ -172,17 +174,19 @@ try:
                 graficar_linea_mensual(resultados, ["categoria", "mes", "valor"], consulta["titulo"], args.anio)
 
             elif consulta["titulo"] == "Total generado por vehiculo en un año":
-                ids = [f"Vehículo {fila[0]}" for fila in resultados]
+                # Se utiliza la patente para la etiqueta del gráfico
+                ids = [f"Vehículo {fila[0]}" for fila in resultados] 
                 montos = [fila[1] for fila in resultados]
 
                 fig, ax = plt.subplots(figsize=(10, 8))
                 wedges, texts, autotexts = ax.pie(
                     montos,
-                    labels=None,
+                    labels=None, # No mostrar etiquetas directamente en las porciones
                     autopct='%1.1f%%',
                     startangle=140,
                     textprops={'fontsize': 10}
                 )
+                # Crear etiquetas personalizadas para la leyenda
                 etiquetas = [f"{vid} (${m:,.0f})" for vid, m in zip(ids, montos)]
                 ax.legend(wedges, etiquetas, title="Vehículos", loc="center left", bbox_to_anchor=(0.9, 0.5), fontsize=10, title_fontsize=11)
                 ax.set_title(f"{consulta['titulo']} ({args.anio})", fontsize=14)
@@ -200,11 +204,12 @@ try:
                 fig, ax = plt.subplots(figsize=(10, 8))
                 wedges, texts, autotexts = ax.pie(
                     montos,
-                    labels=None,
+                    labels=None, # No mostrar etiquetas directamente en las porciones
                     autopct='%1.1f%%',
                     startangle=140,
                     textprops={'fontsize': 10}
                 )
+                # Crear etiquetas personalizadas para la leyenda
                 etiquetas = [f"{n} (${m:,.0f})" for n, m in zip(nombres, montos)]
                 ax.legend(wedges, etiquetas, title="Choferes", loc="center left", bbox_to_anchor=(0.9, 0.5), fontsize=10, title_fontsize=11)
                 ax.set_title(f"{consulta['titulo']} ({args.anio})")

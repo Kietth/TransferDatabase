@@ -1,14 +1,14 @@
-
 CREATE TABLE tipos_servicio (
   id_tipo_servicio SERIAL PRIMARY KEY,
-  nombre varchar NOT NULL,
-  descripcion varchar
+  nombre varchar NOT NULL
 );
 
 CREATE TABLE tipos_vehiculo (
   id_tipo_vehiculo SERIAL PRIMARY KEY,
+  modelo varchar,
   clase varchar NOT NULL,
-  capacidad int
+  capacidad int,
+  tarifa_base int
 );
 
 CREATE TABLE pasajeros (
@@ -31,10 +31,7 @@ CREATE TABLE choferes (
 CREATE TABLE vehiculos (
   id_vehiculo SERIAL PRIMARY KEY,
   patente varchar,
-  modelo varchar,
-  id_tipo_vehiculo int REFERENCES tipos_vehiculo (id_tipo_vehiculo),
-  tarifa_base int,
-  capacidad int
+  id_tipo_vehiculo int REFERENCES tipos_vehiculo (id_tipo_vehiculo)
 );
 
 CREATE TABLE hechos_reservas (
@@ -52,4 +49,3 @@ CREATE TABLE hechos_reservas (
   monto_pago numeric,
   metodo_pago varchar
 );
-
