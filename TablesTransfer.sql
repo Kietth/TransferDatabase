@@ -49,3 +49,30 @@ CREATE TABLE hechos_reservas (
   monto_pago numeric,
   metodo_pago varchar
 );
+
+CREATE TABLE hechos_reservas_analisis (
+  id_reserva int PRIMARY KEY,
+  rut_pasajero int,
+  id_chofer int,
+  id_vehiculo int,
+  id_tipo_servicio int,
+  cant_pasajeros int,
+  estado varchar,
+  fecha date,
+  hora time,
+  origen varchar,
+  destino varchar,
+  monto_pago numeric,
+  metodo_pago varchar,
+  fecha_carga_etl timestamp DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE etl_control (
+    id SERIAL PRIMARY KEY,
+    nombre_proceso VARCHAR(255) UNIQUE NOT NULL,
+    ultima_fecha_carga DATE
+);
+
+INSERT INTO etl_control (nombre_proceso, ultima_fecha_carga)
+VALUES ('reservas_etl', '1900-01-01')
+ON CONFLICT (nombre_proceso) DO NOTHING;
