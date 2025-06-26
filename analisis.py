@@ -29,7 +29,7 @@ try:
                 SELECT 
                     C.nombre || ' ' || C.apellido AS chofer,
                     SUM(H.monto_pago) AS total_generado
-                FROM hechos_reservas H
+                FROM hechos_reservas_analisis H
                 JOIN choferes C ON H.id_chofer = C.id_chofer
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
@@ -45,7 +45,7 @@ try:
                         TO_CHAR(fecha, 'Month') AS mes,
                         EXTRACT(MONTH FROM fecha) AS numero_mes,
                         SUM(monto_pago) AS total_mes
-                    FROM hechos_reservas
+                    FROM hechos_reservas_analisis
                     WHERE 
                         EXTRACT(YEAR FROM fecha) = %s AND
                         estado = 'Completada'
@@ -60,7 +60,7 @@ try:
                     C.nombre  || ' ' ||  C.apellido AS chofer,
                     EXTRACT(MONTH FROM H.fecha) AS mes,
                     SUM(H.monto_pago) AS total_mes
-                FROM hechos_reservas H
+                FROM hechos_reservas_analisis H
                 JOIN choferes C ON H.id_chofer = C.id_chofer
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
@@ -76,7 +76,7 @@ try:
                     TS.nombre AS tipo_servicio,
                     EXTRACT(MONTH FROM HR.fecha) AS mes,
                     COUNT(*) AS cantidad_servicios
-                FROM hechos_reservas HR
+                FROM hechos_reservas_analisis HR
                 JOIN tipos_servicio TS ON HR.id_tipo_servicio = TS.id_tipo_servicio
                 WHERE 
                     EXTRACT(YEAR FROM HR.fecha) = %s AND
@@ -92,7 +92,7 @@ try:
                     V.patente AS id_vehiculo, -- Ahora se selecciona la patente
                     EXTRACT(MONTH FROM H.fecha) AS mes,
                     COUNT(*) AS veces_usado
-                FROM hechos_reservas H
+                FROM hechos_reservas_analisis H
                 JOIN vehiculos V ON H.id_vehiculo = V.id_vehiculo
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
@@ -107,7 +107,7 @@ try:
                 SELECT 
                     V.patente AS id_vehiculo, -- Ahora se selecciona la patente
                     SUM(H.monto_pago) AS total_generado
-                FROM hechos_reservas H
+                FROM hechos_reservas_analisis H
                 JOIN vehiculos V ON H.id_vehiculo = V.id_vehiculo
                 WHERE 
                     EXTRACT(YEAR FROM H.fecha) = %s AND
