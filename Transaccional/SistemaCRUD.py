@@ -9,7 +9,7 @@ try:
     conexion = psycopg2.connect(
         host="localhost",
         port="5432",
-        database="Transfer",
+        database="transfer_transaccional",
         user="postgres",  # Modificar por el usuario correspondiente
         password="1234"   # Modificar por la contraseña del usuario correspondiente
     )
@@ -96,7 +96,7 @@ def modificar_reserva():
         "Cantidad Pasajeros", "Estado", "Fecha (YYYY-MM-DD)", "Hora (HH:MM:SS)",
         "Origen", "Destino", "Monto Pago", "Método Pago"
     ]
-    values = reserva[1:]  # omite id_reserva
+    values = reserva[1:] 
     entries = []
     for i, (label, value) in enumerate(zip(labels, values)):
         tk.Label(ventana_modificar, text=label).grid(row=i, column=0, sticky="e")
@@ -118,13 +118,11 @@ def listar_reservas():
         ventana_lista = tk.Toplevel(ventana)
         ventana_lista.title("Lista de Reservas")
 
-        # Crear un Frame para contener el Text y el Scrollbar
         frame = tk.Frame(ventana_lista)
         frame.pack(fill="both", expand=True)
         scrollbar = tk.Scrollbar(frame)
         scrollbar.pack(side="right", fill="y")
 
-        # Crear el widget Text y vincularlo al scrollbar
         text = tk.Text(frame, width=150, height=50, yscrollcommand=scrollbar.set)
         text.pack(side="left", fill="both", expand=True)
         scrollbar.config(command=text.yview)
@@ -176,7 +174,6 @@ def cargar_datos_prueba():
 
         ids_reservas = []
 
-        # Cargar reservas desde archivo
         with open(archivo_reservas, newline='', encoding='utf-8') as csvfile:
             lector = csv.DictReader(csvfile)
             for fila in lector:
@@ -311,7 +308,6 @@ def borrar_datos_prueba():
     if not confirmacion:
         return
     try:
-        # Borra primero las reservas (por clave foránea), luego los pasajeros
         cursor.execute("DELETE FROM hechos_reservas")
         cursor.execute("DELETE FROM pasajeros")
         conexion.commit()
@@ -319,8 +315,6 @@ def borrar_datos_prueba():
     except Exception as e:
         conexion.rollback()
         messagebox.showerror("Error", f"No se pudieron borrar los datos:\n{e}")
-
-# Interfaz principal
 
 ventana = tk.Tk()
 ventana.title("Gestión de Reservas")
