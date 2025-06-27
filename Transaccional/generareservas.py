@@ -36,9 +36,9 @@ MAX_MONTO = 60000 # Monto en pesos chilenos
 # Posibles ubicaciones de origen/destino
 LUGARES = [
     'Aeropuerto SCL', 'Terminal de Buses Valdivia', 'Centro de Valdivia',
-    'Hotel Marina del Sol', 'Campus Isla Teja UACH', 'Campus Miraflores UACH',
+    'Hotel Dreams', 'Campus Isla Teja UACH', 'Campus Miraflores UACH',
     'Clinica Alemana Valdivia', 'Mall Plaza Los Rios', 'Puerto Fuy', 'Panguipulli',
-    'Frutillar', 'Puerto Varas', 'Osorno', 'Temuco'
+    'Frutillar', 'Huilo Huilo', 'Niebla', 'Hospital Base Valdivia'
 ]
 
 def load_ruts_from_csv(filename=PASAJEROS_CSV_FILENAME):
